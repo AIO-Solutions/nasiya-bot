@@ -73,12 +73,29 @@ class RAM(Database):
         super().__init__(file_path)
         self.users = self.get_data()
         self.admins = self.get_data(admin = True)
+        self.registdata = {}
     
     def is_admin(self, id : int):
         return self.admins.get(id)
     
     def is_user(self, id : int):
         return self.users.get(id)
+    
+    def registr_data(self, id = None, name = None, number = None, get_data = False):
+        if get_data:
+            return self.registdata.get(id)
+        
+        if not self.registdata.get(id):
+            self.registdata[id] = {}
+        
+        if name:
+            self.registdata[id]['name'] = name
+        
+        if number:
+            self.registdata[id]['number'] = number
+    
+
+
 
 
     

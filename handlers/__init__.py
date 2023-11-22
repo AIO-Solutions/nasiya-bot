@@ -1,1 +1,2 @@
-from . import text_habdler
+from . import commands
+from . import message_handlers
