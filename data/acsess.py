@@ -1,4 +1,9 @@
 import sqlite3
+from datetime import datetime
+
+def now():
+    now = datetime.now()
+    return str(now.strftime("%d.%m.%Y %H:%M"))
 
 class Database:
     def __init__(self, file : str):
@@ -93,6 +98,17 @@ class RAM(Database):
         
         if number:
             self.registdata[id]['number'] = number
+    
+    def registir_user(self, id = None):
+        if self.registdata.get(id) and self.registdata[id].get('name') and self.registdata[id].get('number'):
+            
+            registred = now()
+            self.users[id] = {'name' : self.registdata[id]['name'], 'number' : self.registdata[id]['number'], 'registred' : registred}
+            self.registir(id = id, name = self.registdata[id]['name'], registred = registred)
+
+            return True
+        return False
+
     
 
 

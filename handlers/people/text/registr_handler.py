@@ -34,7 +34,7 @@ async def getnumber(message : types.Message, state : FSMContext):
 async def contact_handler(message : types.Message, state : FSMContext):
     number = message.contact.phone_number
 
-    ram.registr_data(id = message.from_user.id, number = '+' + number)
+    ram.registr_data(id = message.from_user.id, number = number)
     data = ram.registr_data(id = message.from_user.id, get_data = True)
 
     await message.answer(f"✅ Telefo'n raqam to'g'ri, \n🤔 Iltimos malumotlaringiz to'gri kiritganigizga ishonch xosil qiling\n👤 isim: {data['name']}\n📱 Telefo'n raqam:{data['number']}",
@@ -46,7 +46,10 @@ async def contact_handler(message : types.Message, state : FSMContext):
 @dp.message_handler(state = registir_state.sure_abaut_info)
 async def sure_about_info(message : types.Message, state : FSMContext):
     if message.text == "✅ To'g'ri":
-        await message.answer("Siz muvaffaqiyatli ro'yxatdan o'tdingi")
+        await message.answer("Siz muvaffaqiyatli ro'yxatdan o'tdingiz")
+        # data = ram.registr_data(id = message.from_user.id, get_data = True)
+        ram.registir_user(id = message.from_user.id)
+
         await state.finish()
 
     elif message.text == "🔄 Qaytadan kiritish":

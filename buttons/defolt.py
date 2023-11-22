@@ -11,3 +11,7 @@ class Defolt:
 
     def sure_registr_info(sekf):
         return ReplyKeyboardMarkup(keyboard = [[KeyboardButton(text = "✅ To'g'ri"), KeyboardButton(text = "🔄 Qaytadan kiritish")]], resize_keyboard = True)
+    
+    def user_menu(slef):
+        return ReplyKeyboardMarkup(keyboard = [[KeyboardButton(text = "Ko'p so'raladigan Savollar")],
+                                               [KeyboardButton(text = "Buyurtma berish")]], resize_keyboard = True)
