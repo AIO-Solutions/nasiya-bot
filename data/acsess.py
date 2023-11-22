@@ -86,7 +86,7 @@ class RAM(Database):
     def is_user(self, id : int):
         return self.users.get(id)
     
-    def registr_data(self, id = None, name = None, number = None, get_data = False):
+    def registr_data(self, id = None, name = None, number = None, order_id = None, get_data = False):
         if get_data:
             return self.registdata.get(id)
         
@@ -95,6 +95,9 @@ class RAM(Database):
         
         if name:
             self.registdata[id]['name'] = name
+
+        if order_id:
+            self.registdata[id]['order'] = order_id
         
         if number:
             self.registdata[id]['number'] = number

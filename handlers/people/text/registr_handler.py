@@ -52,9 +52,13 @@ async def sure_about_info(message : types.Message, state : FSMContext):
 
         await state.finish()
 
+        order = ram.registdata[message.from_user.id].get('order')
+        if order:
+            await message.answer(f"Order id : {order}")
+
     elif message.text == "🔄 Qaytadan kiritish":
         await state.set_state(registir_state.get_name)
         await message.answer("Ilimos ismingini qaytadan kiriting", reply_markup = types.ReplyKeyboardRemove())
 
     else:
-        message.answer("Iltimos quydagi tugmalrdan birni bosing", reply_markup = menu.sure_registr_info())
+        await message.answer("Iltimos quydagi tugmalrdan birni bosing", reply_markup = menu.sure_registr_info())
