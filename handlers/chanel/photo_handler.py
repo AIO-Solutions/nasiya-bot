@@ -3,7 +3,7 @@ from aiogram import types
 from loader import dp, ram, bot, setting
 import re
 
-sot = re.compile(r"/sot")
+sot = re.compile(r"/sot|.*/sot.*")
 
 @dp.channel_post_handler(content_types = types.ContentType.PHOTO)
 async def catch_chanel_message(message : types.Message):

@@ -1,6 +1,10 @@
 from loader import dp, db, ram, order_state, types, menu, inline_buttons, setting
 from aiogram.dispatcher import FSMContext
+from datetime import datetime
 
+def now():
+    now = datetime.now()
+    return str(now.strftime("%d.%m.%Y %H:%M"))
 
 @dp.message_handler(state = [order_state.get_prodact_name])
 async def orrder_id(message : types.Message, state : FSMContext):
@@ -59,7 +63,7 @@ async def sure_about_info_byname(message : types.Message, state : FSMContext):
     if message.text == "✅ To'g'ri":
         data = ram.orders[message.from_user.id]
         db.save_order(by_name = True, order_name = data['name'], user_id = message.from_user.id,
-                      ordered_time = 'xozir', pay_type = data['order_type'])
+                      ordered_time = now(), pay_type = data['order_type'])
         
         await state.finish()
         await message.answer("Sizng buyurtmangiz qabul qilind. Tez orada Sotuvchimiz siz bilan bog'lanadi", 
