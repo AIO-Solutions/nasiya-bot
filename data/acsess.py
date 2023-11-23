@@ -27,12 +27,12 @@ class Database:
         if admin:
             for row in cursor.execute(f"SELECT * FROM admins;"):
                 id, name, registred_time = row[0], row[1], row[2]
-                data[id] = {'name' : name, 'where' : 'none', 'registred' : registred_time}
+                data[id] = {'name' : name, 'where' : None, 'registred' : registred_time}
         
         else:
             for row in cursor.execute(f"SELECT * FROM users;"):
                 id, name, registred_time = row[0], row[1], row[2]
-                data[id] = {'name' : name, 'where' : 'none', 'registred' : registred_time}
+                data[id] = {'name' : name, 'where' : None, 'registred' : registred_time}
 
         conection.commit()
         conection.close()
@@ -73,6 +73,8 @@ class Database:
         conection.close()
 
 
+
+
 class RAM(Database):
     def __init__(self, file_path: str):
         super().__init__(file_path)
@@ -106,11 +108,16 @@ class RAM(Database):
         if self.registdata.get(id) and self.registdata[id].get('name') and self.registdata[id].get('number'):
             
             registred = now()
-            self.users[id] = {'name' : self.registdata[id]['name'], 'number' : self.registdata[id]['number'], 'registred' : registred}
+            self.users[id] = {'name' : self.registdata[id]['name'], 'number' : self.registdata[id]['number'], 'where' : 'head_menu', 'registred' : registred}
             self.registir(id = id, name = self.registdata[id]['name'], registred = registred)
 
             return True
         return False
+    
+    def order_prodact_name(self, id = None, name = None):
+        self.users[id]['order_name'] = name
+
+    
 
     
 

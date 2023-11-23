@@ -22,12 +22,12 @@ class Database:
         if admin:
             for row in cursor.execute(f"SELECT * FROM admins;"):
                 id, name, registred_time = row[0], row[1], row[2]
-                data[id] = {'name' : name, 'where' : 'none', 'registred' : registred_time}
+                data[id] = {'name' : name, 'where' : None, 'registred' : registred_time}
         
         else:
             for row in cursor.execute(f"SELECT * FROM users;"):
                 id, name, registred_time = row[0], row[1], row[2]
-                data[id] = {'name' : name, 'where' : 'none', 'registred' : registred_time}
+                data[id] = {'name' : name, 'where' : None, 'registred' : registred_time}
 
         conection.commit()
         conection.close()

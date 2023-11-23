@@ -46,7 +46,7 @@ async def contact_handler(message : types.Message, state : FSMContext):
 @dp.message_handler(state = registir_state.sure_abaut_info)
 async def sure_about_info(message : types.Message, state : FSMContext):
     if message.text == "✅ To'g'ri":
-        await message.answer("Siz muvaffaqiyatli ro'yxatdan o'tdingiz")
+        await message.answer("Siz muvaffaqiyatli ro'yxatdan o'tdingiz", reply_markup = menu.user_menu())
         # data = ram.registr_data(id = message.from_user.id, get_data = True)
         ram.registir_user(id = message.from_user.id)
 
