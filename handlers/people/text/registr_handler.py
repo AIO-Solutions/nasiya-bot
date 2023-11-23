@@ -59,6 +59,10 @@ async def sure_about_info(message : types.Message, state : FSMContext):
     elif message.text == "🔄 Qaytadan kiritish":
         await state.set_state(registir_state.get_name)
         await message.answer("Ilimos ismingini qaytadan kiriting", reply_markup = types.ReplyKeyboardRemove())
+    
+    elif message.text == "⬅️ Orqaga":
+        await message.answer(f"Iltimos telefo'n raqamingizni qaytadan kiriting yoki kontakni ulashish tugmasni bosing", reply_markup = menu.phone_number())
+        await state.set_state(registir_state.get_number)
 
     else:
         await message.answer("Iltimos quydagi tugmalrdan birni bosing", reply_markup = menu.sure_registr_info())

@@ -12,7 +12,7 @@ class Database:
         conection = sqlite3.connect(file)
         cursor = conection.cursor()
         
-        cursor.execute(f"CREATE TABLE IF NOT EXISTS users ('id' INTEGER , 'name', 'registred');")
+        cursor.execute(f"CREATE TABLE IF NOT EXISTS users ('id' INTEGER , 'name', 'number', 'registred');")
         cursor.execute(f"CREATE TABLE IF NOT EXISTS admins ('id' INTEGER , 'name', 'registred');")
         
         conection.commit()
@@ -31,8 +31,8 @@ class Database:
         
         else:
             for row in cursor.execute(f"SELECT * FROM users;"):
-                id, name, registred_time = row[0], row[1], row[2]
-                data[id] = {'name' : name, 'where' : None, 'registred' : registred_time}
+                id, name, number, registred_time = row[0], row[1], row[2], row[3]
+                data[id] = {'name' : name, 'where' : None, 'registred' : registred_time, 'number' : number}
 
         conection.commit()
         conection.close()
@@ -40,7 +40,7 @@ class Database:
         return data
     
 
-    def registir(self, id : int = None, name : str = None, registred = None, admin = False):
+    def registir(self, id : int = None, name : str = None, registred = None, admin = False, number = None):
         conection = sqlite3.connect(self.file)
         cursor = conection.cursor()
 
@@ -56,7 +56,7 @@ class Database:
             print(f'New admin {name}')
 
         else:
-            match = f"INSERT INTO users ('id', 'name', 'registred') VALUES ({id}, '{name}', '{registred}');"
+            match = f"INSERT INTO users ('id', 'name', 'number', 'registred') VALUES ({id}, '{name}', '{number}', '{registred}');"
             cursor.execute(match)
             print('New user ', name)
 
@@ -73,14 +73,13 @@ class Database:
         conection.close()
 
 
-
-
 class RAM(Database):
     def __init__(self, file_path: str):
         super().__init__(file_path)
         self.users = self.get_data()
         self.admins = self.get_data(admin = True)
         self.registdata = {}
+        self.orders = {}
     
     def is_admin(self, id : int):
         return self.admins.get(id)
@@ -109,13 +108,29 @@ class RAM(Database):
             
             registred = now()
             self.users[id] = {'name' : self.registdata[id]['name'], 'number' : self.registdata[id]['number'], 'where' : 'head_menu', 'registred' : registred}
-            self.registir(id = id, name = self.registdata[id]['name'], registred = registred)
+            self.registir(id = id, name = self.registdata[id]['name'], registred = registred, number = self.registdata[id]['number'])
 
             return True
         return False
     
-    def order_prodact_name(self, id = None, name = None):
-        self.users[id]['order_name'] = name
+    def save_order(self, id = None, name = None, order_id = None, buy_type = None):
+        if not self.orders.get(id):
+            self.orders[id] = {}
+        
+        if name:
+            self.orders[id]['name'] = name
+        
+        elif order_id:
+            self.orders[id]['order_id'] = name
+        
+        elif buy_type:
+            self.orders[id]['order_type'] = buy_type
+        
+    
+
+    
+
+    
 
     
 

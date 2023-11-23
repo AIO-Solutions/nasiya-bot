@@ -9,7 +9,8 @@ class Defolt:
                                                [KeyboardButton("⬅️ Orqaga")]], resize_keyboard = True)
 
     def sure_registr_info(self):
-        return ReplyKeyboardMarkup(keyboard = [[KeyboardButton(text = "✅ To'g'ri"), KeyboardButton(text = "🔄 Qaytadan kiritish")]], resize_keyboard = True)
+        return ReplyKeyboardMarkup(keyboard = [[KeyboardButton(text = "✅ To'g'ri"), KeyboardButton(text = "🔄 Qaytadan kiritish")],
+                                               [KeyboardButton(text = "⬅️ Orqaga")]], resize_keyboard = True)
     
     def user_menu(slef):
         return ReplyKeyboardMarkup(keyboard = [[KeyboardButton(text = "🛒 Buyurtma berish")],
@@ -25,3 +26,6 @@ class Defolt:
         return ReplyKeyboardMarkup(resize_keyboard = True,
                                    keyboard = [[KeyboardButton(text = "💰 Naxt"), KeyboardButton(text = "💸 Nasiya")],
                                                [KeyboardButton(text = "⬅️ Orqaga"), KeyboardButton(text = "🎛 Bosh menu")]])
+    
+    
+    

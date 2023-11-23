@@ -19,7 +19,7 @@ async def message(message: types.Message, state : FSMContext):
             
 
         elif message.text == "ℹ️ Biz haqimzda":
-            await message.answer(setting.data['about_us'])
+            await message.answer(setting.data['about_us'], reply_markup = inline_buttons.go_main_chanel(setting.data['main_chanel']))
         
         elif message.text == "⚙️ Malumotlarni o'zgartirish":
             await message.answer("Malumotlaringzni o'zgartirishni xoxlaysimi?")

@@ -7,12 +7,28 @@ class Database:
         conection = sqlite3.connect(file)
         cursor = conection.cursor()
         
-        cursor.execute(f"CREATE TABLE IF NOT EXISTS users ('id' INTEGER , 'name', 'registred');")
+        cursor.execute(f"CREATE TABLE IF NOT EXISTS users ('id' INTEGER , 'name', 'number', 'registred');")
         cursor.execute(f"CREATE TABLE IF NOT EXISTS admins ('id' INTEGER , 'name', 'registred');")
+        cursor.execute(f"CREATE TABLE IF NOT EXISTS orders ('id' INTEGER, 'user_id' INTEGER, 'name', 'pay_type', 'message_id' INTEGER, 'ordered_time', PRIMARY KEY('id' AUTOINCREMENT));")
         
         conection.commit()
         conection.close()
+
     
+    def save_order(self, by_name = False, by_id = False, user_id = None, order_name = None, pay_type = None, ordered_time = None, message_id = None):
+        conection = sqlite3.connect(self.file)
+        cursor = conection.cursor()
+        if by_name:
+            match = f"INSERT INTO orders ('user_id', 'name', 'pay_type', 'ordered_time') VALUES ({user_id}, '{order_name}', '{pay_type}', '{ordered_time}');"
+            cursor.execute(match)
+
+        elif by_id:
+            match = f"INSERT INTO orders ('user_id', 'message_id', 'pay_type', 'ordered_time') VALUES ({user_id}, '{message_id}', '{pay_type}', '{ordered_time}');"
+            cursor.execute(match)
+
+        conection.commit()
+        conection.close()
+
 
     def get_data(self, admin = False):
         conection = sqlite3.connect(self.file)
@@ -26,8 +42,8 @@ class Database:
         
         else:
             for row in cursor.execute(f"SELECT * FROM users;"):
-                id, name, registred_time = row[0], row[1], row[2]
-                data[id] = {'name' : name, 'where' : None, 'registred' : registred_time}
+                id, name, number, registred_time = row[0], row[1], row[2], row[3]
+                data[id] = {'name' : name, 'where' : None, 'registred' : registred_time, 'number' : number}
 
         conection.commit()
         conection.close()
@@ -35,7 +51,7 @@ class Database:
         return data
     
 
-    def registir(self, id : int = None, name : str = None, registred = None, admin = False):
+    def registir(self, id : int = None, name : str = None, registred = None, admin = False, number = None):
         conection = sqlite3.connect(self.file)
         cursor = conection.cursor()
 
@@ -51,7 +67,7 @@ class Database:
             print(f'New admin {name}')
 
         else:
-            match = f"INSERT INTO users ('id', 'name', 'registred') VALUES ({id}, '{name}', '{registred}');"
+            match = f"INSERT INTO users ('id', 'name', 'number', 'registred') VALUES ({id}, '{name}', '{number}', '{registred}');"
             cursor.execute(match)
             print('New user ', name)
 
