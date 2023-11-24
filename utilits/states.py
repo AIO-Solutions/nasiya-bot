@@ -12,6 +12,6 @@ class OrderProdactState(StatesGroup):
     buy_type_byname = State()
     sure_about_info_byname = State()
 
-    buy_type_id = State()
+    buy_type_byid = State()
     sure_about_info_byid = State()
     

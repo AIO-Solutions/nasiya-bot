@@ -121,7 +121,7 @@ class RAM(Database):
             self.orders[id]['name'] = name
         
         elif order_id:
-            self.orders[id]['order_id'] = name
+            self.orders[id]['order_id'] = order_id
         
         elif buy_type:
             self.orders[id]['order_type'] = buy_type
