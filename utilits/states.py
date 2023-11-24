@@ -14,4 +14,12 @@ class OrderProdactState(StatesGroup):
 
     buy_type_byid = State()
     sure_about_info_byid = State()
+
+
+class UpdateUserData(StatesGroup):
+    want_to_update = State()
+    get_name = State()
+    get_number = State()
+    have_finished = State()
+
     

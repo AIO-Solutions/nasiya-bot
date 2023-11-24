@@ -8,8 +8,11 @@ class Defolt:
         return ReplyKeyboardMarkup(keyboard = [[KeyboardButton("📱 Kontaktni ulashish", request_contact = True)],
                                                [KeyboardButton("⬅️ Orqaga")]], resize_keyboard = True)
 
-    def sure_registr_info(self, byid = False):
-        if byid:
+    def sure_registr_info(self, byid = False, update = False):
+        if update:
+            return ReplyKeyboardMarkup(keyboard = [[KeyboardButton(text = "✅ To'g'ri"), KeyboardButton(text = "⬅️ Orqaga")]], resize_keyboard = True)
+        
+        elif byid:
             return ReplyKeyboardMarkup(keyboard = [[KeyboardButton(text = "✅ To'g'ri")],
                                                [KeyboardButton(text = "⬅️ Orqaga")]], resize_keyboard = True)
         
@@ -37,5 +40,6 @@ class Defolt:
                                                [KeyboardButton(text = "⬅️ Orqaga"), KeyboardButton(text = "🎛 Bosh menu")]])
     
     
-    
+    def yes_or_no(self):
+        return ReplyKeyboardMarkup(resize_keyboard = True, keyboard = [[KeyboardButton(text = "✅ Xa"), KeyboardButton(text = "❌ Yo'q")]])
     

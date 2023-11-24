@@ -82,6 +82,20 @@ class Database:
 
         conection.commit()
         conection.close()
+    
+    def update_user_data(self, id = None, name = None, number = None):
+        conection = sqlite3.connect(self.file)
+        cursor = conection.cursor()
+
+        if name:
+            cursor.execute(f"UPDATE users SET 'name' == '{name}' WHERE id == {id};")
+
+        elif number:
+            cursor.execute(f"UPDATE users SET 'number' == '{number}' WHERE id == {id};")
+
+        conection.commit()
+        conection.close()
+
 
 
 if __name__ == '__main__':

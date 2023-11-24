@@ -14,10 +14,26 @@ class Database:
         
         cursor.execute(f"CREATE TABLE IF NOT EXISTS users ('id' INTEGER , 'name', 'number', 'registred');")
         cursor.execute(f"CREATE TABLE IF NOT EXISTS admins ('id' INTEGER , 'name', 'registred');")
+        cursor.execute(f"CREATE TABLE IF NOT EXISTS orders ('id' INTEGER, 'user_id' INTEGER, 'name', 'pay_type', 'message_id' INTEGER, 'ordered_time', PRIMARY KEY('id' AUTOINCREMENT));")
         
         conection.commit()
         conection.close()
+
     
+    def save_order(self, by_name = False, by_id = False, user_id = None, order_name = None, pay_type = None, ordered_time = None, message_id = None):
+        conection = sqlite3.connect(self.file)
+        cursor = conection.cursor()
+        if by_name:
+            match = f"INSERT INTO orders ('user_id', 'name', 'pay_type', 'ordered_time') VALUES ({user_id}, '{order_name}', '{pay_type}', '{ordered_time}');"
+            cursor.execute(match)
+
+        elif by_id:
+            match = f"INSERT INTO orders ('user_id', 'message_id', 'pay_type', 'ordered_time') VALUES ({user_id}, '{message_id}', '{pay_type}', '{ordered_time}');"
+            cursor.execute(match)
+
+        conection.commit()
+        conection.close()
+
 
     def get_data(self, admin = False):
         conection = sqlite3.connect(self.file)
@@ -68,6 +84,19 @@ class Database:
         cursor = conection.cursor()
         
         cursor.execute(f"DELETE  FROM admins WHERE id == {id};")
+
+        conection.commit()
+        conection.close()
+    
+    def update_user_data(self, id = None, name = None, number = None):
+        conection = sqlite3.connect(self.file)
+        cursor = conection.cursor()
+
+        if name:
+            cursor.execute(f"UPDATE users SET 'name' == '{name}' WHERE id == {id};")
+
+        elif number:
+            cursor.execute(f"UPDATE users SET 'number' == '{number}' WHERE id == {id};")
 
         conection.commit()
         conection.close()
@@ -125,6 +154,14 @@ class RAM(Database):
         
         elif buy_type:
             self.orders[id]['order_type'] = buy_type
+    
+    def update_name(self, id = None, name = None):
+        self.users[id]['name'] = name
+        self.update_user_data(id = id, name = name)
+    
+    def update_number(self, id = None, number = None):
+        self.users[id]['number'] = number
+        self.update_user_data(id = id, number = number)
         
     
 

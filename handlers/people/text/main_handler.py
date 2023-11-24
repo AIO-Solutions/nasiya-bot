@@ -1,4 +1,4 @@
-from loader import dp, ram, types, menu, registir_state, order_state, setting, inline_buttons, bot
+from loader import dp, ram, types, menu, registir_state, order_state, setting, inline_buttons, bot, update_user_data
 from aiogram.dispatcher import FSMContext
 
 
@@ -22,7 +22,8 @@ async def message(message: types.Message, state : FSMContext):
             await message.answer(setting.data['about_us'], reply_markup = inline_buttons.go_main_chanel(setting.data['main_chanel']))
         
         elif message.text == "⚙️ Malumotlarni o'zgartirish":
-            await message.answer("Malumotlaringzni o'zgartirishni xoxlaysimi?")
+            await state.set_state(state = update_user_data.want_to_update)
+            await message.answer("Malumotlaringzni o'zgartirishni hoxlaysizmi?", reply_markup = menu.yes_or_no())
 
     
     elif ram.is_admin(message.from_user.id):

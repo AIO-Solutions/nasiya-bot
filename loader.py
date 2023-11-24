@@ -3,7 +3,7 @@ from config import API_TOKEN
 from data.base import Database
 from data.acsess import RAM
 from data.settings import Setting
-from utilits.states import RegistirState, OrderProdactState
+from utilits.states import RegistirState, OrderProdactState, UpdateUserData
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from buttons.defolt import Defolt
 from buttons.inline import InlineButtons
@@ -20,6 +20,7 @@ setting = Setting('data/setting.json')
 
 registir_state = RegistirState()
 order_state = OrderProdactState()
+update_user_data = UpdateUserData()
 
 menu = Defolt()
 inline_buttons = InlineButtons()
