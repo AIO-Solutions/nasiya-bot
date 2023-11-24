@@ -21,7 +21,7 @@ class Defolt:
     
     def user_menu(slef):
         return ReplyKeyboardMarkup(keyboard = [[KeyboardButton(text = "🛒 Buyurtma berish")],
-                                               [KeyboardButton(text = "❓ Savollar", web_app = WebAppInfo(url = "https://telegra.ph/Savollar-11-23")), KeyboardButton(text = "ℹ️ Biz haqimzda")],
+                                               [KeyboardButton(text = "❓ Savollar", web_app = WebAppInfo(url = "https://telegra.ph/Kop-Soraladigan-Savollar-11-24")), KeyboardButton(text = "ℹ️ Biz haqimzda")],
                                                [KeyboardButton(text = "⚙️ Malumotlarni o'zgartirish")]], 
                                                resize_keyboard = True)
 
