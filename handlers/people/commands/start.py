@@ -2,11 +2,13 @@ from loader import dp, ram, types, registir_state, menu, bot, setting, order_sta
 from aiogram.dispatcher import FSMContext
 from utilits.states import RegistirState
 
-@dp.message_handler(commands = 'start', state = '*')
+@dp.message_handler(commands = ['start', 'restart'], state = '*')
 async def start_command(message : types.Message, state : FSMContext):
-    await bot.set_my_commands(commands = [types.BotCommand(command = '/start', description = "Botni ishga tushirish")])
+    await bot.set_my_commands(commands = [types.BotCommand(command = '/start', description = "Botni ishga tushirish"), 
+                                          types.BotCommand(command = '/restart', description = "Botni qayta ishga tushirish"),
+                                          types.BotCommand(command = '/help', description = "Yordam")])
 
-    
+
     current_state = await state.get_state()
     prodact_id = message.text.split(' ')[-1]
     #Staetega user tushmagan bo'lsa
@@ -33,7 +35,7 @@ async def start_command(message : types.Message, state : FSMContext):
     
         else:
             if ram.is_user(message.from_user.id):
-                await message.answer("You are user")
+                await message.answer("Bosh menu", reply_markup = menu.user_menu())
     
             elif ram.is_admin(message.from_user.id):
                 pass
@@ -68,6 +70,8 @@ async def start_command(message : types.Message, state : FSMContext):
     
         else:
             if ram.is_user(message.from_user.id):
+                await state.finish()
+                ram.users[message.from_user.id]['where'] = 'head_menu'
                 await message.answer("Bosh menu", reply_markup = menu.user_menu())
     
             elif ram.is_admin(message.from_user.id):
