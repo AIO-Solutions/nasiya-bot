@@ -1,9 +1,10 @@
 from telegraph import Telegraph
-
+import requests
 
 class Postman:
-    def __init__(self, token = None, bot_photo = '/file/c7038df96498dca8c07d6.png'):
+    def __init__(self, token: str = None, telgram_bot_token : str = None, bot_photo = '/file/c7038df96498dca8c07d6.png'):
         self.token = token
+        self.tbot_token = telgram_bot_token
         self.bot_photo = bot_photo
         self.telegraph = Telegraph(access_token = token)
     
@@ -19,6 +20,14 @@ class Postman:
             n+=1
         
         return True
+
+    def edit_bot_describtion(self, bot_description : str):
+        # Set the description using the Telegram Bot API    
+        url = f'https://api.telegram.org/bot{self.tbot_token}/setMyShortDescription'
+        params = {'short_description': bot_description}
+        
+        # response = requests.post(url, params=params)
+        # print(response.json())
 
 
 if __name__ == '__main__':
