@@ -15,10 +15,11 @@ class Database:
         conection.close()
 
     
-    def save_order(self, by_name = False, by_id = False, user_id = None, order_name = None, pay_type = None, ordered_time = None, message_id = None):
+    def save_order(self, by_name = False, by_id = False, user_id = None, order_name : str = None, pay_type = None, ordered_time = None, message_id = None):
         conection = sqlite3.connect(self.file)
         cursor = conection.cursor()
         if by_name:
+            order_name = order_name.replace("'", '"')
             match = f"INSERT INTO orders ('user_id', 'name', 'pay_type', 'ordered_time') VALUES ({user_id}, '{order_name}', '{pay_type}', '{ordered_time}');"
             cursor.execute(match)
 
@@ -83,11 +84,12 @@ class Database:
         conection.commit()
         conection.close()
     
-    def update_user_data(self, id = None, name = None, number = None):
+    def update_user_data(self, id = None, name : str = None, number = None):
         conection = sqlite3.connect(self.file)
         cursor = conection.cursor()
 
         if name:
+            name = name.replace("'", '"')
             cursor.execute(f"UPDATE users SET 'name' == '{name}' WHERE id == {id};")
 
         elif number:
