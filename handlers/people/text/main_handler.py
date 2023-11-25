@@ -22,8 +22,9 @@ async def message(message: types.Message, state : FSMContext):
             await message.answer(setting.data['about_us'], reply_markup = inline_buttons.go_main_chanel(setting.data['main_chanel']))
         
         elif message.text == "⚙️ Malumotlarni o'zgartirish":
+            data = ram.users[message.from_user.id]
             await state.set_state(state = update_user_data.want_to_update)
-            await message.answer("Malumotlaringzni o'zgartirishni hoxlaysizmi?", reply_markup = menu.yes_or_no())
+            await message.answer(f"Malumotlaringzni o'zgartirishni hoxlaysizmi? \n👤 isim: {data['name']}\n📱 Telefo'n raqam: {data['number']}", reply_markup = menu.yes_or_no())
 
     
     elif ram.is_admin(message.from_user.id):

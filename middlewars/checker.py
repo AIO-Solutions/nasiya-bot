@@ -44,18 +44,19 @@ class Bro(BaseMiddleware):
             
             if update.callback_query.data == 'check':
                 if await check_sub(user_id = id, chanel = setting.data['main_chanel_id']):
+                    buttons = types.ReplyKeyboardMarkup(resize_keyboard=True, keyboard=[[types.KeyboardButton(text = "/restart")]])
                     # if ram.is_user(update.callback_query.from_user.id):
                     #     pass
                     # elif ram.is_admin(update.callback_query.from_user.id):
                     #     pass
                     # else:
-                    #     await bot.send_message(chat_id = update.callback_query.from_user.id, text = "Iltmos ismingizni kiriting")
-                    
+                    await update.callback_query.answer("✅ Obuna bo'lgansiz")
                     await bot.delete_message(chat_id = update.callback_query.from_user.id, message_id = update.callback_query.message.message_id)
-                
+                    # await bot
+                    await bot.send_message(chat_id = update.callback_query.from_user.id, text = "Botni qayta ishga tushrish", reply_markup=buttons)
 
                 else:
-                    await update.callback_query.answer("Siz bizning kanlga obuna bo'lmadingiz", show_alert = True)
+                    await update.callback_query.answer("❌ Siz bizning kanlga obuna bo'lmadingiz", show_alert = True)
                     raise CancelHandler()
             
             
