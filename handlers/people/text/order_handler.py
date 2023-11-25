@@ -37,7 +37,7 @@ async def buy_type_byname(message : types.Message, state : FSMContext):
 
         user_data = ram.users[id]
         order_data = ram.orders[id]
-        await message.answer(f"Malumotlar to'gri kirtlganiga ishonch xosil qilng\nismi : {user_data['name']}\ntelefo'n raqam:  {user_data['number']}\nBuyurtma nomi: {order_data['name']}\nTo'lo'v: {order_data['order_type']}",
+        await message.answer(f"Malumotlar to'gri kirtlganiga ishonch xosil qilng  \n👤 Ism : {user_data['name']} \n📱 Telefo'n raqam:  {user_data['number']}  \n📦 Buyurtma nomi: {order_data['name']} \n💰 To'lo'v usuli: {order_data['order_type']}",
                              reply_markup = menu.sure_registr_info())
 
     elif message.text == "💸 Nasiya":
@@ -47,7 +47,7 @@ async def buy_type_byname(message : types.Message, state : FSMContext):
 
         user_data = ram.users[id]
         order_data = ram.orders[id]
-        await message.answer(f"Malumotlar to'gri kirtlganiga ishonch xosil qilng\nismi : {user_data['name']}\ntelefo'n raqam:  {user_data['number']}\nBuyurtma nomi: {order_data['name']}\nTo'lo'v: {order_data['order_type']}",
+        await message.answer(f"Malumotlar to'gri kirtlganiga ishonch xosil qilng  \n👤 Ism : {user_data['name']} \n 📱 Telefo'n raqam:  {user_data['number']}  \n📦 Buyurtma nomi: {order_data['name']} \n💰 To'lo'v usuli: {order_data['order_type']}",
                              reply_markup = menu.sure_registr_info())
 
     elif message.text == "🎛 Bosh menu":
@@ -97,7 +97,7 @@ async def get_buy_type_byid(message : types.Message, state : FSMContext):
 
         user_data = ram.users[id]
         order_data = ram.orders[id]
-        await message.answer(f"Malumotlar to'gri kirtlganiga ishonch xosil qilng\nismi : {user_data['name']}\ntelefo'n raqam:  {user_data['number']}\nTo'lo'v: {order_data['order_type']}",
+        await message.answer(f"Malumotlar to'gri kirtlganiga ishonch xosil qilng \n👤 Ism: {user_data['name']}  \n📱 Telefo'n raqam: {user_data['number']}  \n💰 To'lo'v: {order_data['order_type']}",
                              reply_markup = menu.sure_registr_info(byid=True))
 
     elif message.text == "💸 Nasiya":
@@ -107,9 +107,9 @@ async def get_buy_type_byid(message : types.Message, state : FSMContext):
 
         user_data = ram.users[id]
         order_data = ram.orders[id]
-        await message.answer(f"Malumotlar to'gri kirtlganiga ishonch xosil qilng\nismi : {user_data['name']}\ntelefo'n raqam:  {user_data['number']}\nTo'lo'v: {order_data['order_type']}",
+        await message.answer(f"Malumotlar to'gri kirtlganiga ishonch xosil qilng \n👤 Ism: {user_data['name']}  \n📱 Telefo'n raqam: {user_data['number']}  \n💰 To'lo'v: {order_data['order_type']}",
                              reply_markup = menu.sure_registr_info(byid=True))
-
+        
     elif message.text == "🎛 Bosh menu":
         await state.finish()
         await message.answer(text = "Bosh menu", reply_markup = menu.user_menu())

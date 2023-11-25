@@ -9,14 +9,18 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from buttons.defolt import Defolt
 from buttons.inline import InlineButtons
 
-
+setting = Setting('data/setting.json')
 storage = MemoryStorage()
-bot = Bot(token = API_TOKEN)
+
+if setting.data['server'] == '1':
+    bot = Bot(token = API_TOKEN, proxy = "http://proxy.server:3128")
+else:
+    bot = Bot(token = API_TOKEN)
 dp = Dispatcher(bot, storage = storage)
 
 db = Database('data/database.db')
 ram = RAM('data/database.db')
-setting = Setting('data/setting.json')
+
 postman = Postman(token = TELEGRAP_API_TOKEN, telgram_bot_token = API_TOKEN)
 registir_state = RegistirState()
 order_state = OrderProdactState()
