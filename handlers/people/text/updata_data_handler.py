@@ -19,7 +19,7 @@ async def want_to_update(message : types.Message, state : FSMContext):
 async def update_user_name(message: types.Message, state : FSMContext):
     await state.set_state(update_user_data.get_number)
     ram.update_name(id = message.from_user.id, name = message.text)
-    await message.answer(f"{message.text} endi telfo'n raqamingzni kiritng yoki telfo'n raqamni ulashish tugmasni bosing", reply_markup = menu.phone_number())
+    await message.answer(f"{message.text} endi telefon raqamingzni kiritng yoki telfo'n raqamni ulashish tugmasni bosing", reply_markup = menu.phone_number())
 
 
 

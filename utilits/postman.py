@@ -21,13 +21,19 @@ class Postman:
         
         return True
 
-    def edit_bot_describtion(self, bot_description : str):
-        # Set the description using the Telegram Bot API    
+    def edit_bot_describtion(self, bot_description : str):   
         url = f'https://api.telegram.org/bot{self.tbot_token}/setMyShortDescription'
         params = {'short_description': bot_description}
         
-        # response = requests.post(url, params=params)
-        # print(response.json())
+        response = requests.post(url, params=params)
+        return response.json()
+    
+    def edit_bot_what_cando(self, bot_can_description : str):   
+        url = f'https://api.telegram.org/bot{self.tbot_token}/setMyDescription'
+        params = {'description': bot_can_description}
+
+        response = requests.post(url, params=params)
+        return response.json()
 
 
 if __name__ == '__main__':
