@@ -111,6 +111,7 @@ class RAM(Database):
         self.admins = self.get_data(admin = True)
         self.registdata = {}
         self.orders = {}
+        self.block = {}
     
     def is_admin(self, id : int):
         return self.admins.get(id)
@@ -164,7 +165,37 @@ class RAM(Database):
     def update_number(self, id = None, number = None):
         self.users[id]['number'] = number
         self.update_user_data(id = id, number = number)
+
+    def admin_login(self, id : int, block : bool = False):
+        if block:
+            if self.block.get(id):
+                self.block[id] += 1
+            else:
+                self.block[id] = 1
+
+            return self.block[id]
         
+        elif self.block.get(id):
+            return self.block[id]
+        return 0
+    
+    def registir_admin(self, id):
+        data = self.users[id]
+        self.registir(id = id, name = data['name'], registred = now(), admin = True)
+        del self.users[id]
+        self.admins = self.get_data(admin=True)
+        return True
+
+    def logout_admin(self, id: int):
+        self.delet_admin(id=id)
+        if self.block.get(id):
+            del self.block[id]
+        del self.admins[id]
+    
+
+    
+
+
     
 
     

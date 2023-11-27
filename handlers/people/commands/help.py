@@ -1,6 +1,7 @@
-from loader import dp, types, inline_buttons, setting, postman
+from loader import dp, types, inline_buttons, setting, postman, menu
 from aiogram.dispatcher import FSMContext
-
+import sqlite3
+from aiogram.dispatcher.filters.state import StatesGroup, State
 
 @dp.message_handler(commands='help', state = "*")
 async def info(message : types.Message):

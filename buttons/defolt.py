@@ -43,3 +43,17 @@ class Defolt:
     def yes_or_no(self):
         return ReplyKeyboardMarkup(resize_keyboard = True, keyboard = [[KeyboardButton(text = "✅ Xa"), KeyboardButton(text = "❌ Yo'q")]])
     
+    def admin_menu(self):
+        return ReplyKeyboardMarkup(resize_keyboard = True,
+                                   keyboard = [
+                                       [KeyboardButton(text = "📦 Buyurmalar Tarix")],
+                                       [KeyboardButton(text = "💰 Naxtga"), KeyboardButton(text = "💸 Nasiyaga")],
+                                       [KeyboardButton(text = "❓ Savollar"), KeyboardButton(text = "⚙️ Sozlamalar")]
+                                   ])
+
+    def live_admin_panel(self):
+        return ReplyKeyboardMarkup(resize_keyboard=True, 
+                                   keyboard = 
+                                   [
+                                       [KeyboardButton(text = "🚶 Chqish"), KeyboardButton(text = "⬅️ Orqaga")]
+                                    ])

@@ -22,4 +22,17 @@ class UpdateUserData(StatesGroup):
     get_number = State()
     have_finished = State()
 
+class AdminLogin(StatesGroup):
+    adim_login = State()
+    admin_logout = State()
+
+
+class AdminPanelState(StatesGroup):
+    loan_orders = State()
+    cash_orders = State()
+    order_history = State()
+
+    settings = State()
+    question_edit = State()
+    
     

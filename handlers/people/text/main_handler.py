@@ -1,4 +1,4 @@
-from loader import dp, ram, types, menu, registir_state, order_state, setting, inline_buttons, bot, update_user_data
+from loader import dp, db, ram, types, menu, registir_state, order_state, setting, inline_buttons, bot, update_user_data, admin_login, admin_panel_states
 from aiogram.dispatcher import FSMContext
 
 
@@ -28,9 +28,24 @@ async def message(message: types.Message, state : FSMContext):
 
     
     elif ram.is_admin(message.from_user.id):
-        pass
+        data = ram.admins[message.from_user.id]
+        if not data['where']:
+            data['where'] = 'head_men'
+            await message.answer("Bosh menu", reply_markup = menu.admin_menu())
+        
+        elif message.text == "💰 Naxtga":
+            
+            pass
+            
+        else:
+            await message.answer("Quydagi tugmalrdan birni bosing", reply_markup = menu.admin_menu())
     
     else:
+        await bot.set_my_commands(commands = [types.BotCommand(command = '/start', description = "Botni ishga tushirish"), 
+                                          types.BotCommand(command = '/restart', description = "Botni qayta ishga tushirish"),
+                                          types.BotCommand(command = '/help', description = "Yordam"),
+                                          types.BotCommand(command = '/admin', description = "Admin panelga kirish")])
+
         await message.answer("Assalomu alykum Grand Nasiya kanlinig rasmiy bo'tiga xush kelibsiz.\nIltimos ismingizni kiriting")
         await state.set_state(registir_state.get_name)
 
