@@ -1,6 +1,20 @@
 from loader import dp, db, ram, types, menu, registir_state, order_state, setting, inline_buttons, bot, update_user_data, admin_login, admin_panel_states
 from aiogram.dispatcher import FSMContext
 
+months = {
+    '1' : 'yanvar',
+    '2' : 'fevral',
+    '3' : 'mart',
+    '4' : 'aprel',
+    '5' : 'may',
+    '6' : 'iyun',
+    '7' : 'iyul',
+    '8' : 'avgust',
+    '9' : 'sentyabr',
+    '10': 'oktyabr',
+    '11': 'noyabr',
+    '12': 'dekabr' 
+}
 
 @dp.message_handler()
 async def message(message: types.Message, state : FSMContext):
@@ -29,13 +43,35 @@ async def message(message: types.Message, state : FSMContext):
     
     elif ram.is_admin(message.from_user.id):
         data = ram.admins[message.from_user.id]
-        if not data['where']:
+        
+        
+        if message.text == "💰 Naxtga":
+            prodact_data, orders_id = db.get_orders(cash = True, ofset = 0)
+            if len(prodact_data) >= 1:
+                answer = ""
+                n = 1
+                for prodact in prodact_data:
+                    answer += f"{n}.👤 {prodact['user_name']}"
+                    month_index = prodact['ordered_time'].split('.')[1]
+                    answer += f"  ⌛️ {prodact['ordered_time'].split('.')[0]}-{months[month_index]} {prodact['ordered_time'].split(' ')[-1]}"
+                    
+                    if prodact.get('order_name'):
+                        answer += f"\n📦 Buyurtma nomi:{prodact['order_name']}"
+
+                    
+                    answer += '\n\n' + '_'*45
+                    answer += "\n\n"
+                    n+=1
+
+                # print(orders_id)
+                await message.answer(answer, reply_markup = inline_buttons.cash_menu_buttons(ids = orders_id))
+            else:
+                await message.answer("Xozircha buyurtma yo'q", reply_markup = menu.admin_menu())
+            
+        elif not data['where']:
             data['where'] = 'head_men'
             await message.answer("Bosh menu", reply_markup = menu.admin_menu())
-        
-        elif message.text == "💰 Naxtga":
             
-            pass
             
         else:
             await message.answer("Quydagi tugmalrdan birni bosing", reply_markup = menu.admin_menu())

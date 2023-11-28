@@ -39,11 +39,13 @@ class Database:
         if admin:
             for row in cursor.execute(f"SELECT * FROM admins;"):
                 id, name, registred_time = row[0], row[1], row[2]
+                name = name.replace('"', "'")
                 data[id] = {'name' : name, 'where' : None, 'registred' : registred_time}
         
         else:
             for row in cursor.execute(f"SELECT * FROM users;"):
                 id, name, number, registred_time = row[0], row[1], row[2], row[3]
+                name = name.replace('"', "'")
                 data[id] = {'name' : name, 'where' : None, 'registred' : registred_time, 'number' : number}
 
         conection.commit()
@@ -97,6 +99,33 @@ class Database:
 
         conection.commit()
         conection.close()
+    
+    def get_orders(self, cash = False, loan = False, ofset : int = 0, limit : int = 10):
+        conection = sqlite3.connect(self.file)
+        cursor = conection.cursor()
+
+        if cash:
+            data = []
+            orders_id = []
+            command = f"""SELECT orders.id, user_id, users.name, orders.name AS order_name, ordered_time FROM orders 
+                    INNER JOIN users ON users.id = orders.user_id 
+                    WHERE pay_type LIKE 'naxt' 
+                    ORDER BY orders.id DESC 
+                    LIMIT {ofset}, {limit};"""
+        
+            for row in cursor.execute(command):
+                orders_id.append(row[0])
+                name = row[2]
+                name = name.replace('"', "'")
+                data.append({'user_id' : row[1], 
+                         'user_name' : name,
+                         'order_name' : row[3],
+                         'ordered_time' : row[4]})
+
+        conection.commit()
+        conection.close()
+
+        return data, orders_id 
 
 
 

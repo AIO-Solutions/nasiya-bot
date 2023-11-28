@@ -54,7 +54,7 @@ class Bro(BaseMiddleware):
                     await bot.delete_message(chat_id = update.callback_query.from_user.id, message_id = update.callback_query.message.message_id)
                     # await bot
                     await bot.send_message(chat_id = update.callback_query.from_user.id, text = "Botni qayta ishga tushrish", reply_markup=buttons)
-
+                    raise CancelHandler()
                 else:
                     await update.callback_query.answer("❌ Siz bizning kanlga obuna bo'lmadingiz", show_alert = True)
                     raise CancelHandler()
