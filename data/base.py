@@ -125,7 +125,21 @@ class Database:
         conection.commit()
         conection.close()
 
-        return data, orders_id 
+        return data, orders_id
+
+
+    def get_order(self, order_id):
+        conection = sqlite3.connect(self.file)
+        cursor = conection.cursor()
+        
+        for row in cursor.execute(f"SELECT * FROM orders WHERE id = {order_id};"):
+            data = {'id' : row[0], 'user_id' : row[1], 'order_name' : row[2], 'pay_type' : row[3], 'message_id' : row[4], 'time' : row[5]}
+            break
+
+        conection.commit()
+        conection.close()
+
+        return data 
 
 
 

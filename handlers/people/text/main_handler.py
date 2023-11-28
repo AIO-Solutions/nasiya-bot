@@ -59,7 +59,7 @@ async def message(message: types.Message, state : FSMContext):
                         answer += f"\n📦 Buyurtma nomi:{prodact['order_name']}"
 
                     
-                    answer += '\n\n' + '_'*45
+                    answer += '\n\n' + '_'*40
                     answer += "\n\n"
                     n+=1
 
