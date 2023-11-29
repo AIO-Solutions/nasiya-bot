@@ -1,10 +1,13 @@
 from loader import dp, db, ram, order_state, types, menu, inline_buttons, setting
 from aiogram.dispatcher import FSMContext
 from datetime import datetime
+import pytz
 
 def now():
-    now = datetime.now()
-    return str(now.strftime("%d.%m.%Y %H:%M"))
+    tashkent_tz = pytz.timezone('Asia/Tashkent')
+    tashkent_time = datetime.now(tashkent_tz)
+
+    return str(tashkent_time.strftime("%d.%m.%Y %H:%M"))
 
 @dp.message_handler(state = [order_state.get_prodact_name])
 async def orrder_id(message : types.Message, state : FSMContext):

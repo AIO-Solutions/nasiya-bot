@@ -1,9 +1,12 @@
 import sqlite3
 from datetime import datetime
+import pytz 
 
 def now():
-    now = datetime.now()
-    return str(now.strftime("%d.%m.%Y %H:%M"))
+    tashkent_tz = pytz.timezone('Asia/Tashkent')
+    tashkent_time = datetime.now(tashkent_tz)
+
+    return str(tashkent_time.strftime("%d.%m.%Y %H:%M"))
 
 class Database:
     def __init__(self, file : str):
