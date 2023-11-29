@@ -10,6 +10,7 @@ class Database:
         cursor.execute(f"CREATE TABLE IF NOT EXISTS users ('id' INTEGER , 'name', 'number', 'registred');")
         cursor.execute(f"CREATE TABLE IF NOT EXISTS admins ('id' INTEGER , 'name', 'registred');")
         cursor.execute(f"CREATE TABLE IF NOT EXISTS orders ('id' INTEGER, 'user_id' INTEGER, 'name', 'pay_type', 'message_id' INTEGER, 'ordered_time', PRIMARY KEY('id' AUTOINCREMENT));")
+        cursor.execute(f"CREATE TABLE IF NOT EXISTS arxiv ('id' INTEGER, 'user_id' INTEGER, 'name', 'pay_type', 'message_id' INTEGER, 'ordered_time');")
         
         conection.commit()
         conection.close()
@@ -100,6 +101,55 @@ class Database:
         conection.commit()
         conection.close()
     
+    #new
+    def delet_order(self, order_id : int):
+        conection = sqlite3.connect(self.file)
+        cursor = conection.cursor()
+
+        cursor.execute(f"DELET FROM orders WHERE id = {order_id};")
+
+        conection.commit()
+        conection.close()
+    
+    def save_arxiv(self, order_id):
+        conection = sqlite3.connect(self.file)
+        cursor = conection.cursor()
+        
+        cursor.execute(f"""INSERT INTO arxiv ('id', 'user_id', 'name', 'pay_type', 'message_id', 'ordered_time')
+                        SELECT * FROM orders WHERE orders.id == {order_id};""")
+        cursor.execute(f"DELETE FROM orders WHERE id = {order_id};")
+
+        conection.commit()
+        conection.close()
+
+    
+    def save_arxiv_to_orders(self, order_id):
+        conection = sqlite3.connect(self.file)
+        cursor = conection.cursor()
+
+        cursor.execute(f"""INSERT INTO orders ('id', 'user_id', 'name', 'pay_type', 'message_id', 'ordered_time') 
+                        SELECT * FROM arxiv WHERE arxiv.id == {order_id};""")
+        cursor.execute(f"DELETE FROM arxiv WHERE id = {order_id};")
+        
+        conection.commit()
+        conection.close()
+
+    
+    def delet_arxiv_order(self, arxiv_id):
+        conection = sqlite3.connect(self.file)
+        cursor = conection.cursor()
+
+        cursor.execute(f"DELETE FROM arxiv  WHERE id = {arxiv_id};")
+
+        conection.commit()
+        conection.close()
+
+
+        
+
+
+
+
     def get_orders(self, cash = False, loan = False, ofset : int = 0, limit : int = 10):
         conection = sqlite3.connect(self.file)
         cursor = conection.cursor()
@@ -117,10 +167,36 @@ class Database:
                 orders_id.append(row[0])
                 name = row[2]
                 name = name.replace('"', "'")
+                order_name = row[3]
+                if order_name:
+                    order_name = order_name.replace('"', "'")
                 data.append({'user_id' : row[1], 
                          'user_name' : name,
-                         'order_name' : row[3],
+                         'order_name' : order_name,
                          'ordered_time' : row[4]})
+        
+        else:
+            data = []
+            orders_id = []
+            command = f"""SELECT orders.id, user_id, users.name, orders.name AS order_name, ordered_time FROM orders 
+                    INNER JOIN users ON users.id = orders.user_id 
+                    WHERE pay_type LIKE 'nasiya' 
+                    ORDER BY orders.id DESC 
+                    LIMIT {ofset}, {limit};"""
+        
+            for row in cursor.execute(command):
+                orders_id.append(row[0])
+                name = row[2]
+                name = name.replace('"', "'")
+                order_name = row[3]
+                if order_name:
+                    order_name = order_name.replace('"', "'")
+
+                data.append({'user_id' : row[1], 
+                         'user_name' : name,
+                         'order_name' : order_name,
+                         'ordered_time' : row[4]})
+
 
         conection.commit()
         conection.close()
@@ -131,7 +207,7 @@ class Database:
     def get_order(self, order_id):
         conection = sqlite3.connect(self.file)
         cursor = conection.cursor()
-        
+        data = None
         for row in cursor.execute(f"SELECT * FROM orders WHERE id = {order_id};"):
             data = {'id' : row[0], 'user_id' : row[1], 'order_name' : row[2], 'pay_type' : row[3], 'message_id' : row[4], 'time' : row[5]}
             break
@@ -139,7 +215,82 @@ class Database:
         conection.commit()
         conection.close()
 
-        return data 
+        return data
+
+
+    def orders_len(self, loan = False):
+        conection = sqlite3.connect(self.file)
+        cursor = conection.cursor()
+        if loan:
+            for row in cursor.execute(f"SELECT COUNT(id) FROM orders WHERE pay_type LIKE 'nasiya';"):
+                count = row[0]
+                break
+        else:
+            for row in cursor.execute(f"SELECT COUNT(id) FROM orders WHERE pay_type LIKE 'naxt';"):
+                count = row[0]
+                break
+
+        conection.commit()
+        conection.close()
+
+        return count
+
+    def arxiv_len(self):
+        conection = sqlite3.connect(self.file)
+        cursor = conection.cursor()
+
+        for row in cursor.execute(f"SELECT COUNT(id) FROM arxiv;"):
+            count = row[0]
+            break
+
+        conection.commit()
+        conection.close()
+
+        return count
+
+    def get_arxiv(self, ofset : int = 0, limit : int = 10):
+        conection = sqlite3.connect(self.file)
+        cursor = conection.cursor()
+
+        
+        data = []
+        orders_id = []
+        command = f"""SELECT arxiv.id, user_id, users.name, arxiv.name AS order_name, ordered_time, arxiv.pay_type AS pay FROM arxiv 
+                    INNER JOIN users ON users.id = arxiv.user_id 
+                    ORDER BY arxiv.id DESC 
+                    LIMIT {ofset}, {limit};"""
+        
+        for row in cursor.execute(command):
+            orders_id.append(row[0])
+            name = row[2]
+            name = name.replace('"', "'")
+            order_name = row[3]
+            if order_name:
+                order_name = order_name.replace('"', "'")
+            data.append({'user_id' : row[1], 
+                         'user_name' : name,
+                         'order_name' : order_name,
+                         'ordered_time' : row[4],
+                         'pay' : row[5]})
+        
+        conection.commit()
+        conection.close()
+
+        return data, orders_id
+
+
+    def get_arxiv_data(self, order_id):
+        conection = sqlite3.connect(self.file)
+        cursor = conection.cursor()
+        data = None
+        for row in cursor.execute(f"SELECT * FROM arxiv WHERE id = {order_id};"):
+            data = {'id' : row[0], 'user_id' : row[1], 'order_name' : row[2], 'pay_type' : row[3], 'message_id' : row[4], 'time' : row[5]}
+            break
+
+        conection.commit()
+        conection.close()
+
+        return data
 
 
 

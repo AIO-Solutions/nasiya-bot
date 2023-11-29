@@ -48,25 +48,73 @@ async def message(message: types.Message, state : FSMContext):
         if message.text == "💰 Naxtga":
             prodact_data, orders_id = db.get_orders(cash = True, ofset = 0)
             if len(prodact_data) >= 1:
-                answer = ""
+                answer = f"Natijalar 1-{len(orders_id)} {db.orders_len()} dan      \n\n"
                 n = 1
                 for prodact in prodact_data:
                     answer += f"{n}.👤 {prodact['user_name']}"
                     month_index = prodact['ordered_time'].split('.')[1]
-                    answer += f"  ⌛️ {prodact['ordered_time'].split('.')[0]}-{months[month_index]} {prodact['ordered_time'].split(' ')[-1]}"
+                    answer += f"  ⏱ {prodact['ordered_time'].split('.')[0]}-{months[month_index]} {prodact['ordered_time'].split(' ')[-1]}"
                     
                     if prodact.get('order_name'):
-                        answer += f"\n📦 Buyurtma nomi:{prodact['order_name']}"
+                        answer += f"\n 📦 Buyurtma nomi:{prodact['order_name']}"
 
-                    
-                    answer += '\n\n' + '_'*40
                     answer += "\n\n"
                     n+=1
 
-                # print(orders_id)
                 await message.answer(answer, reply_markup = inline_buttons.cash_menu_buttons(ids = orders_id))
             else:
                 await message.answer("Xozircha buyurtma yo'q", reply_markup = menu.admin_menu())
+
+        elif message.text == "💸 Nasiyaga":
+            prodact_data, orders_id = db.get_orders(loan = True, ofset = 0)
+            
+            if len(prodact_data) >= 1:
+                answer = f"Natijalar 1-{len(orders_id)} {db.orders_len()} dan      \n\n"
+                n = 1
+                for prodact in prodact_data:
+                    answer += f"{n}.👤 {prodact['user_name']}"
+                    month_index = prodact['ordered_time'].split('.')[1]
+                    answer += f"  ⏱ {prodact['ordered_time'].split('.')[0]}-{months[month_index]} {prodact['ordered_time'].split(' ')[-1]}"
+                    
+                    if prodact.get('order_name'):
+                        answer += f"\n 📦 Buyurtma nomi:{prodact['order_name']}"
+
+                    answer += "\n\n"
+                    n+=1
+
+                await message.answer(answer, reply_markup = inline_buttons.loan_menu_buttons(ids = orders_id))
+            else:
+                await message.answer("Xozircha buyurtma yo'q", reply_markup = menu.admin_menu())
+
+        elif message.text == '⚙️ Sozlamalar': 
+            await message.answer("Sozlamalar", reply_markup=menu.settings()) 
+
+        elif message.text == "📦 Buyurmalar Tarixi":
+            prodact_data, orders_id = db.get_arxiv(ofset = 0)
+            if len(prodact_data) >= 1:
+                answer = f"Natijalar 1-{len(orders_id)} {db.arxiv_len()} dan \n\n"
+                n = 1
+                for prodact in prodact_data:
+                    answer += f"{n}.👤 {prodact['user_name']}"
+                    month_index = prodact['ordered_time'].split('.')[1]
+                    answer += f"  ⏱ {prodact['ordered_time'].split('.')[0]}-{months[month_index]} {prodact['ordered_time'].split(' ')[-1]}"
+                    # answer += f"\n💰 To'lo'v turi: {prodact['pay']}"
+                    answer += '\n'
+                    if prodact.get('order_name'):
+                        answer += f"📦 Nomi: {prodact['order_name']}    "
+                    
+
+                    answer += f"💰 To'lo'v: {prodact['pay']}\n\n"
+                    n+=1
+                
+                await message.answer(answer, reply_markup = inline_buttons.arxiv_menu_buttons(ids = orders_id))
+                # await message.answer(answer, reply_markup = inline_buttons.cash_menu_buttons(ids = orders_id))
+            else:
+                await message.answer("Xozircha  buyurtmalar yo'q", reply_markup = menu.admin_menu())
+
+        elif message.text == "🛂 Parolni o'zgartish": 
+            await state.set_state(admin_panel_states.change_pass) 
+            await message.answer("Yangi parolni kiriting")
             
         elif not data['where']:
             data['where'] = 'head_men'
@@ -85,6 +133,7 @@ async def message(message: types.Message, state : FSMContext):
         await message.answer("Assalomu alykum Grand Nasiya kanlinig rasmiy bo'tiga xush kelibsiz.\nIltimos ismingizni kiriting")
         await state.set_state(registir_state.get_name)
 
+    
 
 @dp.message_handler(content_types = types.ContentType.STICKER)
 async def sticer_handler(message : types.Message):

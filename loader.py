@@ -29,4 +29,4 @@ admin_login = AdminLogin()
 admin_panel_states = AdminPanelState()
 
 menu = Defolt()
-inline_buttons = InlineButtons()
+inline_buttons = InlineButtons(setting.data['main_chanel'])

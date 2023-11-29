@@ -4,3 +4,4 @@ from . import order_handler
 from . import updata_data_handler
 from . import admin_login
 from . import admin_orders_handlers
+from . import password

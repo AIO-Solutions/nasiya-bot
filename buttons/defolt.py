@@ -46,7 +46,7 @@ class Defolt:
     def admin_menu(self):
         return ReplyKeyboardMarkup(resize_keyboard = True,
                                    keyboard = [
-                                       [KeyboardButton(text = "📦 Buyurmalar Tarix")],
+                                       [KeyboardButton(text = "📦 Buyurmalar Tarixi")],
                                        [KeyboardButton(text = "💰 Naxtga"), KeyboardButton(text = "💸 Nasiyaga")],
                                        [KeyboardButton(text = "❓ Savollar"), KeyboardButton(text = "⚙️ Sozlamalar")]
                                    ])
@@ -57,3 +57,10 @@ class Defolt:
                                    [
                                        [KeyboardButton(text = "🚶 Chqish"), KeyboardButton(text = "⬅️ Orqaga")]
                                     ])
+
+    def settings(self): 
+        return ReplyKeyboardMarkup(resize_keyboard=True, 
+                                  keyboard=[ 
+                                      [KeyboardButton(text="🛂 Parolni o'zgartish")], 
+                                      [KeyboardButton(text='⬅️ Orqaga')] 
+                                  ] )

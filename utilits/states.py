@@ -33,6 +33,7 @@ class AdminPanelState(StatesGroup):
     order_history = State()
 
     settings = State()
+    change_pass = State()
     question_edit = State()
     
     
