@@ -77,7 +77,11 @@ async def start_command(message : types.Message, state : FSMContext):
                     await message.answer("Mahsulot topilmadi", reply_markup = menu.user_menu())
     
             elif ram.is_admin(message.from_user.id):
-                pass
+                await bot.set_my_commands(commands = [types.BotCommand(command = '/start', description = "Botni ishga tushirish"), 
+                                          types.BotCommand(command = '/restart', description = "Botni qayta ishga tushirish"),
+                                          types.BotCommand(command = '/help', description = "Yordam"),
+                                          types.BotCommand(command = '/logout', description = "Admin paneldan chqish")])
+                await message.answer("Bosh menu", reply_markup = menu.admin_menu())
 
             else:
                 await state.set_state(registir_state.get_name)
@@ -91,7 +95,12 @@ async def start_command(message : types.Message, state : FSMContext):
                 await message.answer("Bosh menu", reply_markup = menu.user_menu())
     
             elif ram.is_admin(message.from_user.id):
-                pass
+                await bot.set_my_commands(commands = [types.BotCommand(command = '/start', description = "Botni ishga tushirish"), 
+                                          types.BotCommand(command = '/restart', description = "Botni qayta ishga tushirish"),
+                                          types.BotCommand(command = '/help', description = "Yordam"),
+                                          types.BotCommand(command = '/logout', description = "Admin paneldan chqish")])
+                await message.answer("Bosh menu", reply_markup = menu.admin_menu())
+
 
             else:
                 await state.set_state(registir_state.get_name)

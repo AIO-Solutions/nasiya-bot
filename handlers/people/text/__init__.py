@@ -5,3 +5,5 @@ from . import updata_data_handler
 from . import admin_login
 from . import admin_orders_handlers
 from . import password
+from . import settings_handler
+from . import question_edit_handler

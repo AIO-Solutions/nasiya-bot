@@ -61,6 +61,29 @@ class Defolt:
     def settings(self): 
         return ReplyKeyboardMarkup(resize_keyboard=True, 
                                   keyboard=[ 
-                                      [KeyboardButton(text="🛂 Parolni o'zgartish")], 
+                                      [KeyboardButton(text="🔐 Parolni o'zgartish"), KeyboardButton(text="📡 Asosiy kanal ➕")], 
+                                      [KeyboardButton(text="🤖 Bot profil info"), KeyboardButton(text="ℹ️ Biz haqimzda")], 
                                       [KeyboardButton(text='⬅️ Orqaga')] 
                                   ] )
+    def question_edit(self):
+        return ReplyKeyboardMarkup(resize_keyboard = True,
+                                   keyboard = [
+                                       [KeyboardButton(text = "❓ Savollarni ko'rish",  web_app = WebAppInfo(url = "https://telegra.ph/Kop-Soraladigan-Savollar-11-24"))],
+                                       [KeyboardButton(text = "➕ Qo'shish"), KeyboardButton(text = "➖ Olib tashlash")],
+                                       [KeyboardButton(text='⬅️ Orqaga')] 
+                                       ])
+    
+    def back_or_cansle(self, sure = False):
+        if sure:
+            return ReplyKeyboardMarkup(resize_keyboard=True,
+                                   keyboard = 
+                                   [
+                                       [KeyboardButton(text="✅ To'g'ri")],
+                                       [KeyboardButton(text='⬅️ Orqaga'), KeyboardButton(text = "❌ Bekor qlish")]
+                                   ])
+
+        return ReplyKeyboardMarkup(resize_keyboard=True,
+                                   keyboard = 
+                                   [
+                                       [KeyboardButton(text='⬅️ Orqaga'), KeyboardButton(text = "❌ Bekor qlish")]
+                                   ])

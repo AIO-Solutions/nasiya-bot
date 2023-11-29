@@ -32,8 +32,25 @@ class AdminPanelState(StatesGroup):
     cash_orders = State()
     order_history = State()
 
+    change_paswor_verfy = State()
+    change_pasword = State()
+
+    change_main_chanel = State()
+    change_bot_info = State()
+
+    change_about_us = State()
+    change_questions = State()
+
+    add_question = State()
+    get_question = State()
+    get_answer = State()
+    question_add_sure = State()
+
+    remove_question = State()
+
     settings = State()
     change_pass = State()
     question_edit = State()
+
     
     

@@ -77,7 +77,7 @@ async def main_callback_handler(update : types.CallbackQuery, state : FSMContext
                     pass
 
             else:
-                await update.answer(text = "Boshqa buyurtmalr yo'q")
+                await update.answer("Boshqa buyurtmalar yo'q")
 
         elif command == 'last_cash':
             if int(param) >= 10:
@@ -151,7 +151,10 @@ async def main_callback_handler(update : types.CallbackQuery, state : FSMContext
                 except:
                     pass
             else:
-                await bot.send_message(text = "Boshqa buyurtma yo'q", chat_id = update.from_user.id, reply_markup = menu.admin_menu())
+                await bot.edit_message_text(text = "Boshqa buyurtmalr yo'q", 
+                                            chat_id = update.from_user.id, 
+                                            message_id = update.message.message_id)
+                # await bot.send_message(text = "Boshqa buyurtma yo'q", chat_id = update.from_user.id, reply_markup = menu.admin_menu())
         
         elif command == 'cash':
             param = param.split('&')
@@ -216,7 +219,10 @@ async def main_callback_handler(update : types.CallbackQuery, state : FSMContext
                     except:
                         pass
                 else:
-                    await bot.send_message(text = "Boshqa buyurtma yo'q", chat_id = update.from_user.id, reply_markup = menu.admin_menu())
+                    await bot.edit_message_text(text = "Boshqa buyurtmalr yo'q", 
+                                            chat_id = update.from_user.id, 
+                                            message_id = update.message.message_id)
+                    # await bot.send_message(text = "Boshqa buyurtma yo'q", chat_id = update.from_user.id, reply_markup = menu.admin_menu())
 
 
         elif command == 'loan':
@@ -387,7 +393,10 @@ async def main_callback_handler(update : types.CallbackQuery, state : FSMContext
                     except:
                         pass
                 else:
-                    await bot.send_message(text = "Boshqa buyurtma yo'q", chat_id = update.from_user.id, reply_markup = menu.admin_menu())
+                    await bot.edit_message_text(text = "Boshqa buyurtmalr yo'q", 
+                                            chat_id = update.from_user.id, 
+                                            message_id = update.message.message_id)
+                    # await bot.send_message(text = "Boshqa buyurtma yo'q", chat_id = update.from_user.id, reply_markup = menu.admin_menu())
 
         elif command == 'next_arxiv':
             prodact_data, orders_id = db.get_arxiv(ofset = param)
@@ -517,7 +526,10 @@ async def main_callback_handler(update : types.CallbackQuery, state : FSMContext
                 except:
                     pass
             else:
-                await bot.send_message(text = "Boshqa buyurtma yo'q", chat_id = update.from_user.id, reply_markup = menu.admin_menu())
+                await bot.edit_message_text(text = "Boshqa buyurtmalr yo'q", 
+                                            chat_id = update.from_user.id, 
+                                            message_id = update.message.message_id)
+                # await bot.send_message(text = "Boshqa buyurtma yo'q", chat_id = update.from_user.id, reply_markup = menu.admin_menu())
 
         elif command == "rearxiv":
             order_id = param.split('&')[0]
@@ -566,7 +578,10 @@ async def main_callback_handler(update : types.CallbackQuery, state : FSMContext
                     except:
                         pass
                 else:
-                    await bot.send_message(text = "Boshqa buyurtma yo'q", chat_id = update.from_user.id, reply_markup = menu.admin_menu())
+                    await bot.edit_message_text(text = "Boshqa buyurtmalr yo'q", 
+                                            chat_id = update.from_user.id, 
+                                            message_id = update.message.message_id)
+                    # await bot.send_message(text = "Boshqa buyurtma yo'q", chat_id = update.from_user.id, reply_markup = menu.admin_menu())
 
         elif command == 'delet_arxiv':
             order_id = param.split('&')[0]
@@ -621,7 +636,10 @@ async def main_callback_handler(update : types.CallbackQuery, state : FSMContext
                 except:
                     pass
             else:
-                await bot.send_message(text = "Boshqa buyurtma yo'q", chat_id = update.from_user.id, reply_markup = menu.admin_menu())
+                await bot.edit_message_text(text = "Boshqa buyurtmalr yo'q", 
+                                            chat_id = update.from_user.id, 
+                                            message_id = update.message.message_id)
+                # await bot.send_message(text = "Boshqa buyurtma yo'q", chat_id = update.from_user.id, reply_markup = menu.admin_menu())
 
 
 

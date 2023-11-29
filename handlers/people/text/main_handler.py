@@ -87,7 +87,8 @@ async def message(message: types.Message, state : FSMContext):
                 await message.answer("Xozircha buyurtma yo'q", reply_markup = menu.admin_menu())
 
         elif message.text == '⚙️ Sozlamalar': 
-            await message.answer("Sozlamalar", reply_markup=menu.settings()) 
+            await state.set_state(admin_panel_states.settings)
+            await message.answer("Sozlamalar menusi", reply_markup=menu.settings()) 
 
         elif message.text == "📦 Buyurmalar Tarixi":
             prodact_data, orders_id = db.get_arxiv(ofset = 0)
@@ -112,9 +113,13 @@ async def message(message: types.Message, state : FSMContext):
             else:
                 await message.answer("Xozircha  buyurtmalar yo'q", reply_markup = menu.admin_menu())
 
-        elif message.text == "🛂 Parolni o'zgartish": 
-            await state.set_state(admin_panel_states.change_pass) 
-            await message.answer("Yangi parolni kiriting")
+        # elif message.text == "🛂 Parolni o'zgartish": 
+        #     await state.set_state(admin_panel_states.change_pass) 
+        #     await message.answer("Yangi parolni kiriting")
+
+        elif message.text == "❓ Savollar":
+            await state.set_state(state = admin_panel_states.change_questions)
+            await message.answer("Savollar menusi", reply_markup = menu.question_edit())
             
         elif not data['where']:
             data['where'] = 'head_men'
