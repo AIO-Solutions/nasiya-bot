@@ -13,6 +13,10 @@ async def admin_login_handler(message : types.Message, state : FSMContext):
             # ram.registr(id =  message.from_user.id, name = message.from_user.first_name, admin = True)
             ram.registir_admin(id = message.from_user.id)
             await state.finish()
+            await bot.set_my_commands(commands = [types.BotCommand(command = '/start', description = "Botni ishga tushirish"), 
+                                          types.BotCommand(command = '/restart', description = "Botni qayta ishga tushirish"),
+                                          types.BotCommand(command = '/help', description = "Yordam"),
+                                          types.BotCommand(command = '/logout', description = "Admin paneldan chqish")])
 
             await bot.delete_message(chat_id = message.from_user.id, message_id = message.message_id)
             message_data = await bot.send_sticker(chat_id = message.from_user.id, sticker = 'CAACAgIAAxkBAAI6tWU1NXTI6ZhBHGkyBqEPXPtdO-M-AAJJAgACVp29CiqXDJ0IUyEOMAQ')
@@ -42,6 +46,10 @@ async def admin_logout_handler_text(update : types.Message, state : FSMContext):
         
         await state.finish()
         await update.answer("Siz admin paneldan chiqdingiz", reply_markup = types.ReplyKeyboardRemove())
+        await bot.set_my_commands(commands = [types.BotCommand(command = '/start', description = "Botni ishga tushirish"), 
+                                          types.BotCommand(command = '/restart', description = "Botni qayta ishga tushirish"),
+                                          types.BotCommand(command = '/help', description = "Yordam"),
+                                          types.BotCommand(command = '/admin', description = "Admin panelga kirish")])
     
     elif update.text == "⬅️ Orqaga":
         await state.finish()

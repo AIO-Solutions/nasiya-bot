@@ -95,6 +95,7 @@ async def start_command(message : types.Message, state : FSMContext):
                 await message.answer("Bosh menu", reply_markup = menu.user_menu())
     
             elif ram.is_admin(message.from_user.id):
+                await state.finish()
                 await bot.set_my_commands(commands = [types.BotCommand(command = '/start', description = "Botni ishga tushirish"), 
                                           types.BotCommand(command = '/restart', description = "Botni qayta ishga tushirish"),
                                           types.BotCommand(command = '/help', description = "Yordam"),
@@ -104,4 +105,4 @@ async def start_command(message : types.Message, state : FSMContext):
 
             else:
                 await state.set_state(registir_state.get_name)
-                await message.answer("Assalomu alykum Xush kelibsiz. iltimos ismingizni kiriting")
+                await message.answer("Assalomu alykum Xush kelibsiz. iltimos ismingizni kiriting", reply_markup = types.ReplyKeyboardRemove())
