@@ -22,7 +22,7 @@ async def check_sub(user_id : int, chanel : str):
 
 
 class Bro(BaseMiddleware):
-    async def on_pre_process_update(self, update : types.Update,  data: dict):        
+    async def on_pre_process_update(self, update : types.Update,  data: dict):
         if update.message:
             id = update.message.from_user.id
         

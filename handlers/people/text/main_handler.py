@@ -69,7 +69,7 @@ async def message(message: types.Message, state : FSMContext):
             prodact_data, orders_id = db.get_orders(loan = True, ofset = 0)
             
             if len(prodact_data) >= 1:
-                answer = f"Natijalar 1-{len(orders_id)} {db.orders_len()} dan      \n\n"
+                answer = f"Natijalar 1-{len(orders_id)} {db.orders_len(loan=True)} dan      \n\n"
                 n = 1
                 for prodact in prodact_data:
                     answer += f"{n}.👤 {prodact['user_name']}"
@@ -130,10 +130,10 @@ async def message(message: types.Message, state : FSMContext):
             await message.answer("Quydagi tugmalrdan birni bosing", reply_markup = menu.admin_menu())
     
     else:
-        await bot.set_my_commands(commands = [types.BotCommand(command = '/start', description = "Botni ishga tushirish"), 
-                                          types.BotCommand(command = '/restart', description = "Botni qayta ishga tushirish"),
-                                          types.BotCommand(command = '/help', description = "Yordam"),
-                                          types.BotCommand(command = '/admin', description = "Admin panelga kirish")])
+        # await bot.set_my_commands(commands = [types.BotCommand(command = '/start', description = "Botni ishga tushirish"), 
+        #                                   types.BotCommand(command = '/restart', description = "Botni qayta ishga tushirish"),
+        #                                   types.BotCommand(command = '/help', description = "Yordam"),
+        #                                   types.BotCommand(command = '/admin', description = "Admin panelga kirish")])
 
         await message.answer("Assalomu alykum Grand Nasiya kanlinig rasmiy bo'tiga xush kelibsiz.\nIltimos ismingizni kiriting")
         await state.set_state(registir_state.get_name)
