@@ -4,11 +4,11 @@ from utilits.states import RegistirState
 
 @dp.message_handler(commands = ['start', 'restart'], state = '*')
 async def start_command(message : types.Message, state : FSMContext):
-    # await bot.set_my_commands(commands = [types.BotCommand(command = '/start', description = "Botni ishga tushirish"), 
-    #                                       types.BotCommand(command = '/restart', description = "Botni qayta ishga tushirish"),
-    #                                       types.BotCommand(command = '/help', description = "Yordam"),
-    #                                       types.BotCommand(command = '/admin', description = "Admin panelga krish"),
-    #                                       types.BotCommand(command = '/logout', description = "Admin paneldan chqish")])
+    await bot.set_my_commands(commands = [types.BotCommand(command = '/start', description = "Botni ishga tushirish"), 
+                                          types.BotCommand(command = '/restart', description = "Botni qayta ishga tushirish"),
+                                          types.BotCommand(command = '/help', description = "Yordam"),
+                                          types.BotCommand(command = '/admin', description = "Admin panelga krish"),
+                                          types.BotCommand(command = '/logout', description = "Admin paneldan chqish")])
     current_state = await state.get_state()
     prodact_id = message.text.split(' ')[-1]
     #Staetega user tushmagan bo'lsa

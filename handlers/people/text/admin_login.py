@@ -1,4 +1,4 @@
-from loader import types, dp, ram, admin_login, setting, menu, bot
+from loader import types, dp, ram, admin_login, setting, menu, bot, db
 from aiogram.dispatcher import FSMContext
 import asyncio
 
@@ -19,6 +19,7 @@ async def admin_login_handler(message : types.Message, state : FSMContext):
             #                               types.BotCommand(command = '/admin', description = "Admin panelga krish"),
             #                               types.BotCommand(command = '/logout', description = "Admin paneldan chqish")])
 
+            db.delet_user_order(message.from_user.id)
             await bot.delete_message(chat_id = message.from_user.id, message_id = message.message_id)
             message_data = await bot.send_sticker(chat_id = message.from_user.id, sticker = 'CAACAgIAAxkBAAI6tWU1NXTI6ZhBHGkyBqEPXPtdO-M-AAJJAgACVp29CiqXDJ0IUyEOMAQ')
             

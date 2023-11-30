@@ -291,6 +291,16 @@ class Database:
         conection.close()
 
         return data
+    
+    def delet_user_order(self, user_id):
+        conection = sqlite3.connect(self.file)
+        cursor = conection.cursor()
+
+        cursor.execute(f"DELETE FROM orders WHERE user_id = {user_id};")
+        cursor.execute(f"DELETE FROM arxiv WHERE user_id = {user_id};")
+
+        conection.commit()
+        conection.close()
 
 
 
