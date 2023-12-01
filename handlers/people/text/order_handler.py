@@ -1,4 +1,4 @@
-from loader import dp, db, ram, order_state, types, menu, inline_buttons, setting
+from loader import dp, db, ram, order_state, types, menu, inline_buttons, setting, bot
 from aiogram.dispatcher import FSMContext
 from datetime import datetime
 import pytz
@@ -65,6 +65,14 @@ async def buy_type_byname(message : types.Message, state : FSMContext):
 async def sure_about_info_byname(message : types.Message, state : FSMContext):
     if message.text == "✅ To'g'ri":
         data = ram.orders[message.from_user.id]
+        
+
+        for admin_id in ram.admins.keys():
+            await bot.send_message(chat_id = admin_id, text = f"🆕 Yangi buyurtma \n👤Buyurtmachi: {ram.users[message.from_user.id]['name']} \n📱 Telefo'n raqam: {ram.users[message.from_user.id]['number']}\n📦 Buyurtma nomi: {data['name']} \n💰 To'lo'v turi: {data['order_type']}")
+
+        # print(f"🆕 Yangi buyurtma \n👤Buyurtmachi: {ram.users[message.from_user.id]['name']} \n📱 Telefo'n raqam: {ram.users[message.from_user.id]['number']}\n📦 Buyurtma nomi: {data['name']} \n💰 To'lo'v turi: {data['order_type']}")
+        
+        
         db.save_order(by_name = True, order_name = data['name'], user_id = message.from_user.id,
                       ordered_time = now(), pay_type = data['order_type'])
         
@@ -131,6 +139,12 @@ async def sure_about_info_byid_handler(message : types.Message, state : FSMConte
     elif message.text == "✅ To'g'ri":
         # print(ram.orders)
         data = ram.orders[message.from_user.id]
+        
+        for admin_id in ram.admins.keys():
+            await bot.send_message(chat_id = admin_id, text = f"🆕 Yangi buyurtma \n👤Buyurtmachi: {ram.users[message.from_user.id]['name']} \n📱 Telefo'n raqam: {ram.users[message.from_user.id]['number']} \n💰 To'lo'v turi: {data['order_type']}",
+                                   reply_markup = inline_buttons.see_order(data['order_id']))
+
+        
         db.save_order(by_id = True, message_id = data['order_id'], user_id = message.from_user.id,
                       ordered_time = now(), pay_type = data['order_type'])
         

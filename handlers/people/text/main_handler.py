@@ -20,11 +20,11 @@ months = {
 async def message(message: types.Message, state : FSMContext):
     if ram.is_user(message.from_user.id):
         id = message.from_user.id
-        if not ram.users[id]['where']:
-            await message.answer("Bosh menu", reply_markup = menu.user_menu())
-            ram.users[id]['where'] = 'head_menu'
+        # if not ram.users[id]['where']:
+        #     await message.answer("Bosh menu", reply_markup = menu.user_menu())
+        #     ram.users[id]['where'] = 'head_menu'
         
-        elif message.text == "🛒 Buyurtma berish":
+        if message.text == "🛒 Buyurtma berish":
             await state.set_state(order_state.get_prodact_name)
 
             await message.answer("🛒", reply_markup = menu.back())
@@ -40,6 +40,9 @@ async def message(message: types.Message, state : FSMContext):
             await state.set_state(state = update_user_data.want_to_update)
             await message.answer(f"Malumotlaringzni o'zgartirishni hoxlaysizmi? \n👤 isim: {data['name']}\n📱 Telefo'n raqam: {data['number']}", reply_markup = menu.yes_or_no())
 
+        elif not ram.users[id]['where']:
+            await message.answer("Bosh menu", reply_markup = menu.user_menu())
+            ram.users[id]['where'] = 'head_menu'
     
     elif ram.is_admin(message.from_user.id):
         data = ram.admins[message.from_user.id]

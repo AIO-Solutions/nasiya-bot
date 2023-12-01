@@ -5,7 +5,7 @@ import re
 
 sot = re.compile(r"/sot|.*/sot.*")
 
-@dp.channel_post_handler()
+@dp.channel_post_handler(content_types = types.ContentTypes.TEXT)
 async def catch_chanel_message(message : types.Message):
     if sot.match(message.text):
         text = message.text.replace("/sot", '')

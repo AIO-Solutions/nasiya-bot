@@ -104,3 +104,6 @@ class InlineButtons:
                                         [InlineKeyboardButton(text = "✅ Xa", callback_data = f"delet_sarxiv={arxiv_id}&{offset}"), InlineKeyboardButton(text = "❌ Yo'q", callback_data = f"arxiv={arxiv_id}&{offset}")]
                                     ])
     
+    def see_order(self, message_id):
+        return InlineKeyboardMarkup(inline_keyboard = [[InlineKeyboardButton(text = "📦 Buyurtmani ko'rish", callback_data = f"see", url = f"{self.main_chanel}/{message_id}")]])
+    
