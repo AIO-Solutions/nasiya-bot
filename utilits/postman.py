@@ -2,7 +2,7 @@ from telegraph import Telegraph
 import requests
 
 class Postman:
-    def __init__(self, token: str = None, telgram_bot_token : str = None, bot_photo = '/file/c7038df96498dca8c07d6.png'):
+    def __init__(self, token: str = None, telgram_bot_token : str = None, bot_photo = '/file/f14e1e26c3e26c1d00217.jpg'):
         self.token = token
         self.tbot_token = telgram_bot_token
         self.bot_photo = bot_photo
@@ -37,7 +37,7 @@ class Postman:
 
 
 if __name__ == '__main__':
-    postman = Postman(token = 'none')
-    data = {f"savol {n}" : 'javob' for n in range(10)}
-    print(data)
-    postman.upload(data=data)
+    # postman = Postman(token = 'none')
+    # data = {f"savol {n}" : 'javob' for n in range(10)}
+    # print(data)
+    # postman.upload(data=data)
