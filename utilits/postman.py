@@ -37,6 +37,7 @@ class Postman:
 
 
 if __name__ == '__main__':
+    pass
     # postman = Postman(token = 'none')
     # data = {f"savol {n}" : 'javob' for n in range(10)}
     # print(data)
