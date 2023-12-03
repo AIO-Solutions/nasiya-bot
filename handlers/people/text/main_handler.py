@@ -23,12 +23,12 @@ async def message(message: types.Message, state : FSMContext):
         # if not ram.users[id]['where']:
         #     await message.answer("Bosh menu", reply_markup = menu.user_menu())
         #     ram.users[id]['where'] = 'head_menu'
-        
+        # print(message)
         if message.text == "🛒 Buyurtma berish":
             await state.set_state(order_state.get_prodact_name)
-
             await message.answer("🛒", reply_markup = menu.back())
-            await message.answer("Buyurtma berish uchun mahsulot nomini kiriting yoki kanlimzdagi postlarni sotib olish tugmasni bosing", 
+            await message.answer("🛍 Buyurtma bermoqchi bo'lgan 📦 mahsulotingiz nomini kirting yoki kanlimzdagi elonlardan birni 🛒 Buyurtma berish tugmasni bosing",
+                                 entities=[{"type": "spoiler", "offset": 96, "length": 18}],
                                  reply_markup = inline_buttons.go_main_chanel(setting.data['main_chanel']))
             
 
