@@ -84,7 +84,7 @@ async def change_chanel_handler(update : types.Message, state : FSMContext):
             admins = await bot.get_chat_administrators(chat_id = chanel_id)
 
             for admin in admins:
-                if admin.user.username == 'GrandNasiya_bot':
+                if admin.user.username == 'test9_robot':
                     setting.data['main_chanel'] = url
                     setting.data['main_chanel_id'] = chanel_id
                     setting.update()

@@ -69,4 +69,7 @@ class Bro(BaseMiddleware):
                 raise CancelHandler()
         
 
-                
+        elif update.channel_post:
+            # print(update.channel_post.chat.id)
+            if update.channel_post.chat.id != setting.data['main_chanel_id']:
+                raise CancelHandler()

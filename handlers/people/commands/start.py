@@ -4,6 +4,9 @@ from utilits.states import RegistirState
 
 @dp.message_handler(commands = ['start', 'restart'], state = '*')
 async def start_command(message : types.Message, state : FSMContext):
+    
+
+
     await bot.set_my_commands(commands = [types.BotCommand(command = '/start', description = "Botni ishga tushirish"), 
                                           types.BotCommand(command = '/restart', description = "Botni qayta ishga tushirish"),
                                           types.BotCommand(command = '/help', description = "Yordam"),

@@ -162,6 +162,8 @@ async def main_callback_handler(update : types.CallbackQuery, state : FSMContext
             param = param[0]
 
             order_data = db.get_order(order_id = param)
+            if not order_data:
+                return None
             month_index = order_data['time'].split('.')[1]
 
             # print(order_data)
@@ -231,6 +233,8 @@ async def main_callback_handler(update : types.CallbackQuery, state : FSMContext
             param = param[0]
 
             order_data = db.get_order(order_id = param)
+            if not order_data:
+                return None
             month_index = order_data['time'].split('.')[1]
 
             # print(order_data)
@@ -393,7 +397,7 @@ async def main_callback_handler(update : types.CallbackQuery, state : FSMContext
                     except:
                         pass
                 else:
-                    await bot.edit_message_text(text = "Boshqa buyurtmalr yo'q", 
+                    await bot.edit_message_text(text = "Boshqa buyurtmalar yo'q", 
                                             chat_id = update.from_user.id, 
                                             message_id = update.message.message_id)
                     # await bot.send_message(text = "Boshqa buyurtma yo'q", chat_id = update.from_user.id, reply_markup = menu.admin_menu())
@@ -480,6 +484,8 @@ async def main_callback_handler(update : types.CallbackQuery, state : FSMContext
             param = param[0]
 
             order_data = db.get_arxiv_data(order_id = param)
+            if not order_data:
+                return None
             month_index = order_data['time'].split('.')[1]
 
             # print(order_data)
