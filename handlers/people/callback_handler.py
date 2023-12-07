@@ -256,11 +256,11 @@ async def main_callback_handler(update : types.CallbackQuery, state : FSMContext
                 nex = int(param)+10
                 star = int(param)
 
-                if star == 0:
-                    star = 1
-                elif nex > n:
-                    nex = n
-                answer = f"Natijalar {star}-{nex} {n} dan\n\n"
+                # if star == 0:
+                #     star = 1
+                if nex > n:
+                    nex = len(prodact_data)
+                answer = f"Natijalar {star}-{len(prodact_data)} {n} dan\n\n"
                 n = 1
 
                 for prodact in prodact_data:

@@ -120,7 +120,7 @@ async def message(message: types.Message, state : FSMContext):
             await message.answer("❗️ Quydagi tugmalrdan birni bosing", reply_markup = menu.admin_menu())
     
     else:
-        await message.answer("Assalomu alykum <a href='https://t.me/grandnasiya'>Grand Nasiya </a> kanlinig rasmiy bo'tiga xush kelibsiz.\nIltimos ismingizni kiriting",
+        await message.answer("Assalomu alaykum <a href='https://t.me/grandnasiya'>Grand Nasiya </a> kanlinig rasmiy bo'tiga xush kelibsiz.\nIltimos ismingizni kiriting",
                              parse_mode = 'html',
                              reply_markup = types.ReplyKeyboardRemove())
         await state.set_state(registir_state.get_name)
