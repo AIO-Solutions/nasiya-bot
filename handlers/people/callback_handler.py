@@ -36,7 +36,10 @@ async def main_callback_handler(update : types.CallbackQuery, state : FSMContext
     id = update.from_user.id
  
     if update.data == 'delet':
-        await bot.delete_message(chat_id = update.from_user.id, message_id = update.message.message_id)
+        try:
+            await bot.delete_message(chat_id = update.from_user.id, message_id = update.message.message_id)
+        except:
+            pass
         return None
     
     # print(update.data)
