@@ -68,12 +68,12 @@ class Database:
             cursor.execute(match)
             cursor.execute(match2)
             
-            print(f'New admin {name}')
+            # print(f'New admin {name}')
 
         else:
             match = f"INSERT INTO users ('id', 'name', 'number', 'registred') VALUES ({id}, '{name}', '{number}', '{registred}');"
             cursor.execute(match)
-            print('New user ', name)
+            # print('New user ', name)
 
         conection.commit()
         conection.close()
